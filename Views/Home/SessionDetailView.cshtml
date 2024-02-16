@@ -15,7 +15,7 @@
     </div>
 }
 
-<a class="btn btn-outline-dark mt-3 mb-3" asp-action="Index" asp-controller="Home">Back to Session List</a>
+<a class="btn btn-outline-warning mt-3 mb-3" asp-action="Index" asp-controller="Home">Back to Session List</a>
 
 <h2>Session Details</h2>
 
@@ -31,18 +31,18 @@
     </div>
     <div class="form-group pb-3">
         <label asp-for="StartPage"></label>
-        <input asp-for="StartPage" class="form-control w-25" />
+        <input asp-for="StartPage" id="StartPage"class="form-control w-25" />
         <span asp-validation-for="StartPage" class="text-danger"></span>
     </div>
     <div class="form-group pb-3">
         <label asp-for="EndPage"></label>
-        <input asp-for="EndPage" class="form-control w-25" />
+        <input asp-for="EndPage" id="EndPage" class="form-control w-25" />
         <span asp-validation-for="EndPage" class="text-danger"></span>
     </div>
 
     <div class="form-group pb-3">
         <label asp-for="TotalPages"></label>
-        <input asp-for="TotalPages" class="form-control w-25" readonly/>
+        <input asp-for="TotalPages" id="TotalPages" class="form-control w-25" />
         <span asp-validation-for="TotalPages" class="text-danger"></span>
     </div>
     <div class="form-group pb-3">
@@ -56,10 +56,11 @@
     </div>
     <input asp-for="Id" type="hidden" />
     <button type="submit" class="btn btn-success">Save Changes</button>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete</button>
+
 </form>
 
 @* --------------------Burdan sonrası düzeltilecek-----------------------------*@
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete</button>
 
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog">

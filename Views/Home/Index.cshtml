@@ -25,19 +25,20 @@
         </div>
     }
 
-    <a class="btn btn-success mt-3 mb-3" asp-controller="Home" asp-action="AddSessionView">Add Session</a>
+    <a class="btn btn-outline-warning mt-3 mb-3 d-flex justify-content-center align-content-center" asp-controller="Home" asp-action="AddSessionView">
+        Add Session    </a>
     </div>
-<h2>List of read sessions with kids</h2>
+<h2 class="text-center">List of read sessions with kids</h2>
 
 @if (Model.ReadSessions != null && Model.ReadSessions.Count > 0)
 {
     <table class="table">
-        <thead>
+        <thead id="tableheads">
             <tr>
-                <th>Date</th>
-                <th>Book Name</th>
-                <th>Total Pages</th>
-                <th>Duration</th>
+                <th><a asp-controller="Home" asp-action="SortByDate">Date</a></th>
+                <th><a asp-controller="Home" asp-action="SortByBookName">Book name</a></th>
+                <th><a asp-controller="Home" asp-action="SortByTotalPages">TotalPages</a></th>
+                <th><a asp-controller="Home" asp-action="SortByDuration">Duration</a></th>
                 <th></th>
             </tr>
         </thead>
@@ -50,7 +51,7 @@
                     <td>@session.TotalPages</td>
                     <td>@session.Duration</td>
                     <td>
-                        <a asp-controller="/Home" asp-action="SessionDetailView" asp-route-id="@session.Id" class="btn btn-outline-secondary btn-block">View Details</a>
+                        <a asp-controller="/Home" asp-action="SessionDetailView" asp-route-id="@session.Id" class="viewButton btn btn-outline-secondary btn-block">View Details</a>
                     </td>
                 </tr>
             }

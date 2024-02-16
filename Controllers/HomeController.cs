@@ -30,6 +30,66 @@ namespace ReadToKidsTracker.Controllers
             return View(readsViewModel); // passing viewmodel list to view
         }
 
+        [HttpGet]
+        public IActionResult SortByDate()
+        {
+            var readsViewModel = new ReadSessionViewModel();
+            try
+            {
+                readsViewModel.ReadSessions = _readService.GetReadSessions();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Something went wrong when fetching data: {ex.Message}";
+            }
+            return View("Index",readsViewModel); // passing viewmodel list to view
+        }
+
+        [HttpGet]
+        public IActionResult SortByBookName()
+        {
+            var readsViewModel = new ReadSessionViewModel();
+            try
+            {
+                readsViewModel.ReadSessions = _readService.GetReadSessions().OrderBy(x => x.BookName).ToList(); 
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Something went wrong when fetching data: {ex.Message}";
+            }
+            return View("Index",readsViewModel); // passing viewmodel list to view
+        }
+
+        [HttpGet]
+        public IActionResult SortByTotalPages()
+        {
+            var readsViewModel = new ReadSessionViewModel();
+            try
+            {
+                readsViewModel.ReadSessions = _readService.GetReadSessions().OrderByDescending(x => x.TotalPages).ToList();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Something went wrong when fetching data: {ex.Message}";
+            }
+            return View("Index", readsViewModel); // passing viewmodel list to view
+        }
+
+        [HttpGet]
+        public IActionResult SortByDuration()
+        {
+            var readsViewModel = new ReadSessionViewModel();
+            try
+            {
+                readsViewModel.ReadSessions = _readService.GetReadSessions().OrderByDescending(x => x.Duration).ToList();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Something went wrong when fetching data: {ex.Message}";
+            }
+            return View("Index", readsViewModel); // passing viewmodel list to view
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -55,7 +115,7 @@ namespace ReadToKidsTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSession(ReadSessionView newSession) 
+        public IActionResult AddSession(ReadSessionView newSession)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +125,7 @@ namespace ReadToKidsTracker.Controllers
             try
             {
                 _readService.AddSession(newSession);
-                TempData["SuccessMessage"] = "Home added successfully!";
+                TempData["SuccessMessage"] = "Session added successfully!";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -96,7 +156,7 @@ namespace ReadToKidsTracker.Controllers
                 return View("SessionDetailView", updatedSession);
             }
         }
-        
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
